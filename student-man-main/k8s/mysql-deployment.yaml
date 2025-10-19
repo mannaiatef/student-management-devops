@@ -5,8 +5,8 @@ metadata:
   namespace: devops
 type: Opaque
 data:
-  mysql-root-password: cm9vdA==   # "root" encodé en base64
-  mysql-database: dGVzdGRi     # "testdb" encodé en base64
+  mysql-root-password: cm9vdA==        # "root" encodé en base64
+  mysql-database: c3ByaW5nZGI=         # "springdb" encodé en base64
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -58,4 +58,4 @@ spec:
     - protocol: TCP
       port: 3306
       targetPort: 3306
-  clusterIP: None   # pour que Spring résolve facilement mysql-service
+  clusterIP: None

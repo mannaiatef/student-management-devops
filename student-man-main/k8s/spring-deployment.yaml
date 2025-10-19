@@ -1,26 +1,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: studentmang-app
+  name: foyeresprit-app
   namespace: devops
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: studentmang-app
+      app: foyeresprit-app
   template:
     metadata:
       labels:
-        app: studentmang-app
+        app: foyeresprit-app
     spec:
       containers:
-        - name: studentmang-app
-          image: maramsd/studentmang-app:latest
+        - name: foyeresprit-app
+          image: atefmannai/foyeresprit:latest
           ports:
-            - containerPort: 8080
+            - containerPort: 8083
           env:
             - name: SPRING_DATASOURCE_URL
-              value: jdbc:mysql://mysql-service:3306/testdb?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+              value: jdbc:mysql://mysql-service:3306/springdb?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
             - name: SPRING_DATASOURCE_USERNAME
               value: root
             - name: SPRING_DATASOURCE_PASSWORD
@@ -28,8 +28,6 @@ spec:
                 secretKeyRef:
                   name: mysql-secret
                   key: mysql-root-password
-            - name: SPRING_DATASOURCE_DRIVER_CLASS_NAME
-              value: com.mysql.cj.jdbc.Driver
 ---
 apiVersion: v1
 kind: Service
@@ -38,10 +36,10 @@ metadata:
   namespace: devops
 spec:
   selector:
-    app: studentmang-app
+    app: foyeresprit-app
   ports:
     - protocol: TCP
-      port: 8080
-      targetPort: 8080
-      nodePort: 32639
+      port: 8083
+      targetPort: 8083
+      nodePort: 32083
   type: NodePort
